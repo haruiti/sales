@@ -1,0 +1,112 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema sales
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema sales
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `sales` DEFAULT CHARACTER SET utf8 ;
+USE `sales` ;
+
+-- -----------------------------------------------------
+-- Table `produto`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `produto` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL,
+  `referencia` VARCHAR(45) NOT NULL,
+  `preco` DECIMAL(10,2) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  UNIQUE INDEX `referencia_UNIQUE` (`referencia` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `fornecedor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `fornecedor` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  UNIQUE INDEX `nome_UNIQUE` (`nome` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `produto_fornecedor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `produto_fornecedor` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `produto_id` INT NOT NULL,
+  `fornecedor_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_produto_fornecedor_produto_idx` (`produto_id` ASC) VISIBLE,
+  INDEX `fk_produto_fornecedor_fornecedor1_idx` (`fornecedor_id` ASC) VISIBLE,
+  CONSTRAINT `fk_produto_fornecedor_produto`
+    FOREIGN KEY (`produto_id`)
+    REFERENCES `produto` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_produto_fornecedor_fornecedor1`
+    FOREIGN KEY (`fornecedor_id`)
+    REFERENCES `fornecedor` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `venda`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `venda` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `data` DATE NULL,
+  `endereco` VARCHAR(45) NULL,
+  `bairro` VARCHAR(45) NULL,
+  `cidade` VARCHAR(45) NULL,
+  `estado` VARCHAR(45) NULL,
+  `numero` VARCHAR(45) NULL,
+  `complemento` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `venda_produto`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `venda_produto` (
+  `venda_id` INT NOT NULL,
+  `produto_id` INT NOT NULL,
+  `preco` DECIMAL(10,2) NULL,
+  INDEX `fk_venda_produto_venda1_idx` (`venda_id` ASC) VISIBLE,
+  INDEX `fk_venda_produto_produto1_idx` (`produto_id` ASC) VISIBLE,
+  CONSTRAINT `fk_venda_produto_venda1`
+    FOREIGN KEY (`venda_id`)
+    REFERENCES `venda` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_venda_produto_produto1`
+    FOREIGN KEY (`produto_id`)
+    REFERENCES `produto` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
