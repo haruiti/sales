@@ -85,4 +85,17 @@ class vendasModel extends Model
             return $e->getMessage();
             }
         }
+
+        public function finalizaVenda($vendaId, $total)
+        {
+            try {
+
+                $query = "UPDATE sales.venda SET valor_total='$total'
+                WHERE id='$vendaId'";
+                return DB::update($query);
+
+            } catch (\Exception $e) {
+                return $e->getMessage();
+                }
+        }
 }

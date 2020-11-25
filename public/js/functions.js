@@ -143,7 +143,7 @@ function addVenda(){
         success: function(response) {
             $("#loading").hide();
             $('#vendaId').val(response);
-
+            $("#msg").html("<div class='alert alert-success'> Endereço salvo com sucesso! Prossiga com a inclusão dos produtos.</div>");
 
         },
         error: function(erro) {
@@ -159,6 +159,7 @@ function addVenda(){
 
 function addProduto(){
 
+    $("#msg").html("");
 
     if($("#vendaId").val()==''){
 
@@ -192,7 +193,9 @@ function addProduto(){
                 first = +$('#total').val();
                 second = +$("#selProduto option:selected").attr('preco');
 
-                total=+first+second;
+                total = first + second;
+                total = Math.round(total * 100) / 100;
+                total = total.toFixed(2);
                 $('#total').val(total);
             },
             error: function(erro) {
@@ -242,17 +245,50 @@ function getProdutos(){
 function finalizar()
 {
     if($('#vendaId').val() != ""){
-        $('#vendaId').val("");
-        $('#cep').val("");
-        $("#endereco").val("");
-        $("#numero").val("");
-        $("#complemento").val("");
-        $("#bairro").val("");
-        $("#cidade").val("");
-        $("#uf").val("");
-        $("#tableValor-body").html("");
-        $('#total').val("");
-        $("#msg").html("<div class='alert alert-success'>Venda Finalizada!</div>");
+
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+            }
+        });
+
+        var data = {
+            vendaId: $('#vendaId').val(),
+            valorTotal: $("#total").val(),
+        };
+
+        $.ajax("finalizaVenda", {
+            method: "GET",
+            cache: false,
+            data: data,
+            beforeSend: function() {
+                $("#loading").show();
+            },
+            success: function(response) {
+                $("#loading").hide();
+                $('#vendaId').val("");
+                $('#cep').val("");
+                $("#endereco").val("");
+                $("#numero").val("");
+                $("#complemento").val("");
+                $("#bairro").val("");
+                $("#cidade").val("");
+                $("#uf").val("");
+                $("#tableValor-body").html("");
+                $('#total').val("");
+                $("#msg").html("<div class='alert alert-success'>Venda Finalizada!</div>");
+
+            },
+            error: function(erro) {
+                $("#loading").hide();
+                $("#msg").html(JSON.stringify(erro, true));
+
+            }
+        });
+
+
+
+
     }else{
         $("#msg").html("<div class='alert alert-info'>Não há venda para finalizar!</div>");
     }

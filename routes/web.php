@@ -20,3 +20,4 @@ Route::get('/', function () {
 Route::get('addProduct','vendasController@addProduct');
 Route::get('getProduct','vendasController@getProduct');
 Route::get('addVenda','vendasController@addVenda');
+Route::get('finalizaVenda','vendasController@finalizaVenda');

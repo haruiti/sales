@@ -38,7 +38,7 @@ class vendasController extends Controller
         }
 
         $fornecedorNomeText=implode(", ",$fornecedorNome);
-        error_log(print_r($request->vendaId, true));
+
         $idProdutoVenda=$this->vendasModel->addProduct($request->vendaId, $productId, $preco);
 
 
@@ -69,5 +69,11 @@ class vendasController extends Controller
                                                 $uf);
 
         return $vendaId;
+    }
+
+    public function finalizaVenda(Request $request)
+    {
+        $resultado = $this->vendasModel->finalizaVenda($request->vendaId, $request->valorTotal);
+        return $resultado;
     }
 }

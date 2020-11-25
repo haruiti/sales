@@ -58,7 +58,6 @@
                         </span>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -89,7 +88,7 @@
                 </div>
                 <div class="col-sm-2 col-md-2">
                     <label for="data">Total:</label>
-                    <input name="total" id="total" class="form-control" style="width: 100%">
+                    <input name="total" id="total" class="form-control" style="width: 100%" disabled>
                 </div>
             </div><br>
             <div class="row">
@@ -122,7 +121,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="{{ asset('js/custom.min.js') }}"></script>
-<script src="{{asset('js/functions.js')}}"></script>
+<script src="{{ asset('js/functions.js')}}"></script>
 <script>getProdutos()</script>
 
 
