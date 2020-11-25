@@ -1,61 +1,61 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Teste Prático de PHP para novos Colaboradores
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+O objetivo deste teste é conhecer suas habilidades em:
 
-## About Laravel
+* PHP, MySQL, HTML, CSS e JavaScript;
+* Entendimento e análise dos requisitos;
+* Modelagem de banco de dados;
+* Integração com API;
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+A aplicação pode ser feita em PHP puro ou algum framework conhecido no mercado. Banco de dados MySQL ou MariaDB. Será um diferencial se for usado o Framework [Laravel](https://laravel.com/) versão 5 ou superior, pois é com ele que você vai trabalhar.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Problema
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Sistema de Vendas
 
-## Learning Laravel
+* O cliente quer registrar vendas de produtos com a data da venda e endereço de entrega;
+* Deve ser possível buscar produtos pelo nome ou referência;
+* Na medida que vai adicionando os produtos na tela de venda, deve-se listar em uma tabela o nome, preço e nome do(s) fornecedor(es) dos produtos adicionados. Deve também atualizar o valor total da venda. Exemplo:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+|  Nome  |  Preço  |  Fornecedor(es)  |
+| ------ | ------- | -----------------|
+| Prod A | 2,50    | Forn A, Forn B   |
+| Prod B | 10,00   |                  |
+| Prod C | 5,00    | Forn D           |
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**Total: 17,50**
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+* Deve ter um campo de CEP do endereço de entrega. Ao preencher esse campo busque automaticamente a UF, nome da cidade, bairro e rua de entrega.
+* Não pode salvar a venda sem informar o endereço completo de entrega;
+* O cliente necessita ter o o histórico completo das vendas, com seus itens, valor total, data e endereço de entrega completo;
 
-### Premium Partners
+## Requisitos
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+* A única tela de cadastro que você precisa fazer é a de vendas, não precisa criar as telas de cadastro de produtos e fornecedores, somente suas tabelas no ER e banco de dados. Popule as tabelas diretamente no banco com INSERT's;
+* Criar um Modelo ER usando Workbench https://www.mysql.com/products/workbench/
+* O cadastro de produtos deve conter nome, referência e preco.  Todos obrigatórios (lembrando que você não vai criar a tela de cadastro, mas deve tratar isso no banco de dados);
+* O banco de dados deve tratar a questão de um produto ter vários fornecedores, você deve criar campos/tabelas para tal;
+* O cadastro de fornecedores só precisa ter nome;
+* O banco de dados não pode permitir 2 produtos com mesma referência;
+* Usar AJAX para buscar produtos e JavaScript para atualizar a tabela de produtos da venda;
+* Considere sempre quantidade 1 para cada item adicionado na tela de venda;
+* Deve usar o webservice da ViaCEP para completar o endereço após preencher o campo CEP;
+* Os preços dos produtos sofrem atualização semanal, isso não pode interferir no valor das vendas registradas e de seus produtos. Modele o banco de dados de tal forma a tratar essa questão;
+* Faça fork desse projeto e edite este README explicando como devo fazer para criar as tabelas e testar a tela de venda;
+* Todos os arquivos necessários para rodar o projeto devem estar no repositório do github;
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Diferenciais
 
-## Code of Conduct
+* Fazer a tela de venda responsiva (que se adapta a diferentes dispositivos) usando o framework [Bootstrap](https://getbootstrap.com/) ou [Vue](https://vuejs.org/);
+* Usar testes unitários para qualquer parte do sistema;
+* Procure fazer vários commits com mensagens claras;
+* Entrega também no [HEROKU](https://www.heroku.com);
+* Você terá 24h para realizar que serão contados apartir do email enviado pelo nosso time, não esqueça retornar o email com a palavra ***FINALIZADO*** no assunto do email (subject) com o endereço e projeto para avaliação;
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Como criar as tabelas
+Basta abrir o arquivo Modelo ER neste diretório, copiar o script e executar no MySQL. O arquivo de .mwb do Modelo ER também  encontra-se neste diretório.
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Testar a tela de venda
+Existe neste diretório um procedimento chamado Procedimento Para Testar a Tela De Venda.pdf.
